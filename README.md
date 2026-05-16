@@ -24,16 +24,10 @@ assets/
 
 ## Cómo personalizar
 
-### 1. Número de WhatsApp (IMPORTANTE)
+### 1. Número de WhatsApp
 
-Por defecto los enlaces usan el placeholder `34000000000`. Sustitúyelo por el
-número real del propietario (formato internacional, sin `+` ni espacios).
-
-Busca y reemplaza en `index.html`:
-
-```
-wa.me/34000000000  →  wa.me/34XXXXXXXXX
-```
+Configurado: **+34 624 896 471**. Si en el futuro cambia, basta con un
+buscar/reemplazar de `34624896471` en `index.html`.
 
 ### 2. Fotos reales
 
