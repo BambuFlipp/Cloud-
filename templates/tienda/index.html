@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Boutique Aurora · Moda</title>
+<meta name="description" content="Tu boutique de confianza. Moda con personalidad en el centro de la ciudad.">
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CONFIGURACIÓN DEL NEGOCIO                                   ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<script>
+const CONFIG = {
+  nombre: "Boutique Aurora",
+  subtitulo: "Moda y complementos",
+  eslogan: "Estilo que cuenta tu historia",
+  descripcion: "Selección cuidada de marcas independientes y diseño nacional. Más de 10 años vistiendo a mujeres con personalidad.",
+
+  telefono: "+34 911 234 567",
+  whatsapp: "34600000000",
+  email: "hola@boutiqueaurora.es",
+  direccion: "Calle del Carmen 15, 28012 Madrid",
+  mapaEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.7!2d-3.7099!3d40.4156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI0JzU2LjIiTiAzwrA0MiczNS43Ilc!5e0!3m2!1ses!2ses!4v1234567890",
+
+  horario: {
+    lunes:     { abierto: true,  desde: "10:30", hasta: "20:30" },
+    martes:    { abierto: true,  desde: "10:30", hasta: "20:30" },
+    miercoles: { abierto: true,  desde: "10:30", hasta: "20:30" },
+    jueves:    { abierto: true,  desde: "10:30", hasta: "20:30" },
+    viernes:   { abierto: true,  desde: "10:30", hasta: "21:00" },
+    sabado:    { abierto: true,  desde: "11:00", hasta: "21:00" },
+    domingo:   { abierto: false }
+  },
+
+  // === CATEGORÍAS DE LA TIENDA ===
+  categorias: ["Novedades", "Vestidos", "Tops y blusas", "Pantalones", "Complementos", "Zapatos"],
+
+  // === PRODUCTOS DESTACADOS ===
+  productos: [
+    { nombre: "Vestido midi flores", precio: 79, categoria: "Vestidos", foto: "https://images.unsplash.com/photo-1572804013309-59a88b7e92f1?w=600&q=80", destacado: true },
+    { nombre: "Blazer oversize",     precio: 95, categoria: "Tops y blusas", foto: "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=600&q=80" },
+    { nombre: "Bolso piel artesano", precio: 120, categoria: "Complementos", foto: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=600&q=80", destacado: true },
+    { nombre: "Pantalón palazzo",    precio: 65, categoria: "Pantalones", foto: "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?w=600&q=80" },
+    { nombre: "Sandalia minimal",    precio: 85, categoria: "Zapatos", foto: "https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600&q=80" },
+    { nombre: "Top de seda",         precio: 55, categoria: "Tops y blusas", foto: "https://images.unsplash.com/photo-1564257631407-4deb1f99d992?w=600&q=80" },
+    { nombre: "Pendientes plata",    precio: 45, categoria: "Complementos", foto: "https://images.unsplash.com/photo-1535632787350-4e68ef0ac584?w=600&q=80", destacado: true },
+    { nombre: "Vestido lino blanco", precio: 89, categoria: "Vestidos", foto: "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=600&q=80" }
+  ],
+
+  // === SERVICIOS ===
+  servicios: [
+    { icono: "🛍️", titulo: "Personal shopper", descripcion: "Asesoramiento personalizado gratuito con cita previa." },
+    { icono: "📦", titulo: "Reserva en tienda", descripcion: "Reserva por WhatsApp y prueba sin compromiso." },
+    { icono: "✂️", titulo: "Arreglos a medida", descripcion: "Servicio de costura para que todo te quede perfecto." },
+    { icono: "🎁", titulo: "Envoltorio regalo", descripcion: "Envoltorio gratuito para tus compras de regalo." }
+  ],
+
+  fotoHero: "https://images.unsplash.com/photo-1441984904996-e0b6ba687e04?w=1600&q=80",
+  fotoSobre: "https://images.unsplash.com/photo-1567401893414-76b7b1e5a7a5?w=900&q=80",
+
+  colorAccent: "#be185d",
+  colorAccent2: "#f9a8d4",
+
+  resenas: [
+    { autor: "Sandra L.", estrellas: 5, texto: "Encuentro piezas únicas que no veo en otras tiendas. El trato es de 10." },
+    { autor: "Carmen B.", estrellas: 5, texto: "El personal shopper me cambió el armario. Súper recomendable." },
+    { autor: "Lola V.",   estrellas: 5, texto: "Calidad, gusto y trato cercano. Mi boutique de confianza." }
+  ]
+};
+</script>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #fffdfb;
+    --surface: #fff;
+    --surface-2: #f8f3ef;
+    --text: #1a1414;
+    --text-dim: #7a6c64;
+    --accent: #be185d;
+    --accent-2: #f9a8d4;
+    --border: #ebe2d8;
+    --serif: 'Cormorant Garamond', Georgia, serif;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    padding-bottom: 80px;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--accent); text-decoration: none; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,253,251,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px 0;
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .brand-name { font-family: var(--serif); font-weight: 600; font-size: 24px; letter-spacing: 0.5px; line-height: 1; }
+  .brand-sub { font-size: 10px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 3px; margin-top: 2px; }
+  .nav-links { display: none; gap: 28px; }
+  .nav-links a { color: var(--text); font-size: 13px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 500; }
+  .nav-links a:hover { color: var(--accent); }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+
+  .hero {
+    position: relative; min-height: 80vh;
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 60px 20px; color: #fff;
+    overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background-size: cover; background-position: center;
+    filter: brightness(0.65);
+    z-index: -1;
+  }
+  .hero-tag {
+    display: inline-block;
+    font-size: 11px;
+    letter-spacing: 4px; text-transform: uppercase;
+    margin-bottom: 20px; color: var(--accent-2);
+  }
+  .hero h1 {
+    font-family: var(--serif);
+    font-size: clamp(48px, 10vw, 110px);
+    font-weight: 500; line-height: 0.95;
+    letter-spacing: -1px;
+    margin-bottom: 16px;
+  }
+  .hero p {
+    font-size: clamp(15px, 2vw, 18px);
+    max-width: 540px; margin: 0 auto 32px;
+    font-style: italic;
+  }
+  .btn {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    padding: 14px 36px; border-radius: 0;
+    font-weight: 500; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 3px;
+    transition: background 0.2s, transform 0.2s;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .btn:hover { background: #9d1654; }
+  .btn-ghost { background: transparent; color: inherit; border: 1px solid currentColor; }
+  .btn-ghost:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn-outline-white { background: transparent; color: #fff; border: 1px solid #fff; }
+  .btn-outline-white:hover { background: #fff; color: var(--text); }
+
+  .strip {
+    background: var(--text); color: var(--bg);
+    padding: 14px 0; overflow: hidden;
+  }
+  .strip-track {
+    display: flex; gap: 48px;
+    font-size: 12px; text-transform: uppercase; letter-spacing: 3px;
+    animation: scroll 30s linear infinite;
+    white-space: nowrap;
+  }
+  @keyframes scroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  section { padding: 80px 0; }
+  .section-tag { color: var(--accent); font-size: 11px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 12px; font-weight: 600; }
+  .section-title { font-family: var(--serif); font-size: clamp(36px, 5vw, 56px); font-weight: 500; letter-spacing: -0.5px; margin-bottom: 16px; line-height: 1.05; }
+  .section-sub { color: var(--text-dim); max-width: 540px; margin-bottom: 48px; font-size: 16px; }
+  .center { text-align: center; }
+  .center .section-sub { margin-left: auto; margin-right: auto; }
+
+  /* CATEGORÍAS PILL */
+  .cat-pills {
+    display: flex; gap: 8px; overflow-x: auto;
+    padding-bottom: 12px; margin-bottom: 32px;
+  }
+  .cat-pill {
+    flex-shrink: 0;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 10px 20px; border-radius: 100px;
+    cursor: pointer; font-size: 13px;
+    text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text); transition: all 0.2s;
+  }
+  .cat-pill:hover { border-color: var(--accent); color: var(--accent); }
+  .cat-pill.active { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+  /* PRODUCTOS GRID */
+  .productos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+  @media (min-width: 768px) { .productos-grid { grid-template-columns: repeat(4, 1fr); gap: 24px; } }
+  .producto { display: block; }
+  .producto-foto {
+    aspect-ratio: 3/4;
+    background-size: cover; background-position: center;
+    margin-bottom: 12px; position: relative;
+    overflow: hidden;
+  }
+  .producto-foto::before {
+    content: ''; position: absolute; inset: 0;
+    background: rgba(0,0,0,0); transition: background 0.3s;
+  }
+  .producto:hover .producto-foto::before { background: rgba(0,0,0,0.1); }
+  .producto-badge {
+    position: absolute; top: 12px; left: 12px;
+    background: var(--accent); color: #fff;
+    padding: 4px 10px;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px;
+  }
+  .producto h4 { font-size: 14px; margin-bottom: 4px; font-weight: 500; }
+  .producto .precio { color: var(--accent); font-weight: 600; font-size: 14px; }
+  .producto-info-btn {
+    display: block; margin-top: 8px;
+    font-size: 11px; text-transform: uppercase; letter-spacing: 1.5px;
+    color: var(--text-dim); text-decoration: underline;
+  }
+
+  /* SERVICIOS */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 32px;
+  }
+  .servicio { text-align: center; padding: 24px; }
+  .servicio-icon { font-size: 40px; margin-bottom: 16px; }
+  .servicio h4 { font-family: var(--serif); font-size: 22px; margin-bottom: 8px; }
+  .servicio p { color: var(--text-dim); font-size: 14px; }
+
+  /* SOBRE NOSOTROS */
+  .sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px; align-items: center;
+  }
+  @media (min-width: 768px) { .sobre-grid { grid-template-columns: 1fr 1fr; gap: 64px; } }
+  .sobre-foto {
+    aspect-ratio: 4/5;
+    background-size: cover; background-position: center;
+  }
+
+  /* RESEÑAS */
+  .resenas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  .resena {
+    background: var(--surface);
+    padding: 32px;
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+  .estrellas { color: var(--accent); font-size: 14px; margin-bottom: 16px; letter-spacing: 3px; }
+  .resena p { font-style: italic; font-family: var(--serif); font-size: 19px; margin-bottom: 16px; line-height: 1.4; }
+  .resena strong { color: var(--text-dim); font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: 2px; }
+
+  /* HORARIO */
+  .horario-tabla {
+    max-width: 400px; margin: 0 auto;
+  }
+  .horario-row {
+    display: flex; justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 15px;
+  }
+  .horario-row:last-child { border-bottom: 0; }
+  .horario-row.hoy { color: var(--accent); font-weight: 600; }
+  .horario-row span:first-child { text-transform: capitalize; }
+
+  /* MAPA */
+  .mapa-wrap {
+    border-radius: 0;
+    border: 1px solid var(--border);
+    aspect-ratio: 16/9; margin-top: 32px;
+    overflow: hidden;
+  }
+  .mapa-wrap iframe { width: 100%; height: 100%; border: 0; }
+
+  /* CTA WHATSAPP */
+  .cta-banner {
+    background: var(--text); color: var(--bg);
+    padding: 64px 20px; text-align: center;
+  }
+  .cta-banner h2 { font-family: var(--serif); font-size: clamp(32px, 5vw, 44px); margin-bottom: 16px; }
+  .cta-banner p { opacity: 0.8; margin-bottom: 24px; }
+
+  /* MODAL */
+  .modal-overlay {
+    position: fixed; inset: 0; z-index: 100;
+    background: rgba(0,0,0,0.7);
+    display: none; align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.active { display: flex; }
+  .modal {
+    background: var(--surface);
+    max-width: 480px; width: 100%;
+    padding: 32px;
+    position: relative;
+    max-height: 90vh; overflow-y: auto;
+  }
+  .modal-close {
+    position: absolute; top: 12px; right: 12px;
+    background: none; border: 0; font-size: 24px;
+    cursor: pointer; color: var(--text);
+    width: 36px; height: 36px;
+  }
+  .modal h3 { font-family: var(--serif); font-size: 28px; margin-bottom: 8px; }
+  .modal .precio-modal { color: var(--accent); font-size: 22px; font-weight: 700; margin-bottom: 16px; }
+  .modal-foto { aspect-ratio: 3/4; background-size: cover; background-position: center; margin-bottom: 20px; }
+  .modal p { color: var(--text-dim); margin-bottom: 20px; }
+  .modal .btn { width: 100%; }
+
+  .sticky-cta {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; gap: 8px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  }
+  .sticky-cta .btn { flex: 1; padding: 14px; font-size: 12px; }
+  .sticky-cta .btn-call {
+    background: var(--surface-2); color: var(--text);
+    flex: 0 0 60px;
+  }
+  @media (min-width: 900px) { .sticky-cta { display: none; } body { padding-bottom: 0; } }
+
+  footer {
+    background: var(--text); color: var(--bg);
+    padding: 48px 0 24px; text-align: center;
+  }
+  footer .brand-name { color: var(--bg); }
+  footer .brand-sub { color: var(--text-dim); }
+  footer p { font-size: 13px; margin: 6px 0; opacity: 0.7; }
+  footer .social { margin: 20px 0; }
+  footer .social a {
+    display: inline-block;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    line-height: 36px;
+    margin: 0 4px;
+    color: var(--bg);
+    font-size: 13px;
+  }
+  .legal { font-size: 11px; opacity: 0.4; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div>
+      <div class="brand-name" id="brand-name"></div>
+      <div class="brand-sub" id="brand-sub"></div>
+    </div>
+    <div class="nav-links">
+      <a href="#tienda">Tienda</a>
+      <a href="#servicios">Servicios</a>
+      <a href="#nosotros">Nosotros</a>
+      <a href="#visitar">Visítanos</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-bg" id="hero-bg"></div>
+  <div>
+    <div class="hero-tag" id="hero-tag"></div>
+    <h1 id="hero-name"></h1>
+    <p id="hero-desc"></p>
+    <a href="#tienda" class="btn btn-outline-white">Ver colección</a>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="strip-track">
+    <span>✦ Envíos a toda España</span>
+    <span>✦ Personal shopper gratuito</span>
+    <span>✦ Cambios sin coste</span>
+    <span>✦ Marcas independientes</span>
+    <span>✦ Envoltorio regalo</span>
+    <span>✦ Envíos a toda España</span>
+    <span>✦ Personal shopper gratuito</span>
+    <span>✦ Cambios sin coste</span>
+    <span>✦ Marcas independientes</span>
+    <span>✦ Envoltorio regalo</span>
+  </div>
+</div>
+
+<section id="tienda">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Tienda</div>
+      <h2 class="section-title">Selección destacada</h2>
+      <p class="section-sub">Reserva por WhatsApp y pruébatelo en tienda sin compromiso.</p>
+    </div>
+    <div class="cat-pills" id="cat-pills"></div>
+    <div class="productos-grid" id="productos-grid"></div>
+  </div>
+</section>
+
+<section id="servicios" style="background: var(--surface-2);">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Lo que ofrecemos</div>
+      <h2 class="section-title">Servicios exclusivos</h2>
+    </div>
+    <div class="servicios-grid" id="servicios-grid"></div>
+  </div>
+</section>
+
+<section id="nosotros">
+  <div class="container">
+    <div class="sobre-grid">
+      <div class="sobre-foto" id="sobre-foto"></div>
+      <div>
+        <div class="section-tag">Nuestra historia</div>
+        <h2 class="section-title">Más que una tienda</h2>
+        <p style="margin-bottom: 16px; color: var(--text-dim); font-size: 17px;">Aurora nació de la pasión por descubrir piezas únicas. Trabajamos con marcas independientes y diseñadoras nacionales que comparten nuestra filosofía: calidad, autenticidad y atención al detalle.</p>
+        <p style="color: var(--text-dim); font-size: 17px;">Cada visita es una experiencia. Te asesoramos, te escuchamos, y te ayudamos a construir el armario que siempre quisiste tener.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="background: var(--surface-2);">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Reseñas</div>
+      <h2 class="section-title">Nuestras clientas</h2>
+    </div>
+    <div class="resenas-grid" id="resenas-grid"></div>
+  </div>
+</section>
+
+<section id="visitar">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Visítanos</div>
+      <h2 class="section-title">Horarios y ubicación</h2>
+      <p class="section-sub" id="ubicacion-direccion"></p>
+    </div>
+    <div class="horario-tabla" id="horario-tabla"></div>
+    <div class="mapa-wrap"><iframe id="mapa-iframe" loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<div class="cta-banner">
+  <div class="container">
+    <h2>¿Algo en mente?</h2>
+    <p>Cuéntanos qué buscas y te lo preparamos para que vengas a probártelo.</p>
+    <a href="#" id="cta-whatsapp" class="btn btn-outline-white" target="_blank">Escribir por WhatsApp</a>
+  </div>
+</div>
+
+<footer>
+  <div class="container">
+    <div class="brand-name" id="footer-name"></div>
+    <div class="brand-sub" id="footer-sub"></div>
+    <p id="footer-direccion" style="margin-top: 16px;"></p>
+    <p id="footer-telefono"></p>
+    <div class="social">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+      <a href="#" aria-label="TikTok">TT</a>
+    </div>
+    <p class="legal">© <span id="year"></span> · Web por <a href="../../" style="color:inherit;">PinoWeb</a></p>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#" class="btn btn-call" id="sticky-call">📞</a>
+  <a href="#" class="btn" id="sticky-wa">WhatsApp</a>
+</div>
+
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <button class="modal-close" id="modal-close">×</button>
+    <div class="modal-foto" id="modal-foto"></div>
+    <h3 id="modal-nombre"></h3>
+    <div class="precio-modal" id="modal-precio"></div>
+    <p>Reserva esta prenda por WhatsApp y te la tenemos lista para probártela cuando vengas a la tienda.</p>
+    <a href="#" id="modal-whatsapp" class="btn" target="_blank">Reservar en tienda</a>
+  </div>
+</div>
+
+<script>
+(function() {
+  document.title = CONFIG.nombre + " · " + CONFIG.subtitulo;
+  ['brand-name','footer-name'].forEach(id => document.getElementById(id).textContent = CONFIG.nombre);
+  ['brand-sub','footer-sub'].forEach(id => document.getElementById(id).textContent = CONFIG.subtitulo);
+  document.getElementById('hero-tag').textContent = CONFIG.eslogan;
+  document.getElementById('hero-name').textContent = CONFIG.nombre;
+  document.getElementById('hero-desc').textContent = CONFIG.descripcion;
+  document.getElementById('hero-bg').style.backgroundImage = `url('${CONFIG.fotoHero}')`;
+  document.getElementById('sobre-foto').style.backgroundImage = `url('${CONFIG.fotoSobre}')`;
+  document.getElementById('footer-direccion').textContent = CONFIG.direccion;
+  document.getElementById('footer-telefono').textContent = CONFIG.telefono;
+  document.getElementById('ubicacion-direccion').textContent = CONFIG.direccion;
+  document.getElementById('mapa-iframe').src = CONFIG.mapaEmbed;
+  document.getElementById('year').textContent = new Date().getFullYear();
+  document.getElementById('sticky-call').href = "tel:" + CONFIG.telefono.replace(/\s/g, '');
+
+  const waBase = `https://wa.me/${CONFIG.whatsapp}?text=`;
+  document.getElementById('sticky-wa').href = waBase + encodeURIComponent(`Hola! Quería preguntar por...`);
+  document.getElementById('cta-whatsapp').href = waBase + encodeURIComponent(`Hola ${CONFIG.nombre}, me gustaría preguntar por...`);
+
+  const root = document.documentElement;
+  root.style.setProperty('--accent', CONFIG.colorAccent);
+  root.style.setProperty('--accent-2', CONFIG.colorAccent2);
+
+  // Categorías pills
+  const cp = document.getElementById('cat-pills');
+  const allPill = document.createElement('div');
+  allPill.className = 'cat-pill active'; allPill.textContent = 'Todo';
+  allPill.dataset.cat = '';
+  cp.appendChild(allPill);
+  CONFIG.categorias.forEach(c => {
+    const p = document.createElement('div');
+    p.className = 'cat-pill'; p.textContent = c; p.dataset.cat = c;
+    cp.appendChild(p);
+  });
+
+  // Productos
+  function renderProductos(filtro) {
+    const pg = document.getElementById('productos-grid');
+    pg.innerHTML = '';
+    const lista = filtro ? CONFIG.productos.filter(p => p.categoria === filtro) : CONFIG.productos;
+    lista.forEach(p => {
+      const d = document.createElement('div');
+      d.className = 'producto';
+      d.innerHTML = `
+        <div class="producto-foto" style="background-image:url('${p.foto}')">
+          ${p.destacado ? '<span class="producto-badge">Top venta</span>' : ''}
+        </div>
+        <h4>${p.nombre}</h4>
+        <div class="precio">${p.precio}€</div>
+        <span class="producto-info-btn">Reservar para probar →</span>
+      `;
+      d.addEventListener('click', () => abrirModal(p));
+      pg.appendChild(d);
+    });
+  }
+  renderProductos('');
+
+  document.querySelectorAll('.cat-pill').forEach(p => {
+    p.addEventListener('click', () => {
+      document.querySelectorAll('.cat-pill').forEach(x => x.classList.remove('active'));
+      p.classList.add('active');
+      renderProductos(p.dataset.cat);
+    });
+  });
+
+  // Servicios
+  const sg = document.getElementById('servicios-grid');
+  CONFIG.servicios.forEach(s => {
+    const d = document.createElement('div');
+    d.className = 'servicio';
+    d.innerHTML = `
+      <div class="servicio-icon">${s.icono}</div>
+      <h4>${s.titulo}</h4>
+      <p>${s.descripcion}</p>
+    `;
+    sg.appendChild(d);
+  });
+
+  // Reseñas
+  const rg = document.getElementById('resenas-grid');
+  CONFIG.resenas.forEach(r => {
+    const d = document.createElement('div');
+    d.className = 'resena';
+    d.innerHTML = `
+      <div class="estrellas">${'★'.repeat(r.estrellas)}</div>
+      <p>"${r.texto}"</p>
+      <strong>${r.autor}</strong>
+    `;
+    rg.appendChild(d);
+  });
+
+  // Horario
+  const ht = document.getElementById('horario-tabla');
+  const dias = ['lunes','martes','miercoles','jueves','viernes','sabado','domingo'];
+  const diasN = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
+  const hoy = diasN[new Date().getDay()];
+  dias.forEach(d => {
+    const h = CONFIG.horario[d];
+    const row = document.createElement('div');
+    row.className = 'horario-row' + (d === hoy ? ' hoy' : '');
+    row.innerHTML = `
+      <span>${d}</span>
+      <span>${h.abierto ? `${h.desde} – ${h.hasta}` : 'Cerrado'}</span>
+    `;
+    ht.appendChild(row);
+  });
+})();
+
+// Modal producto
+function abrirModal(p) {
+  document.getElementById('modal-foto').style.backgroundImage = `url('${p.foto}')`;
+  document.getElementById('modal-nombre').textContent = p.nombre;
+  document.getElementById('modal-precio').textContent = `${p.precio}€`;
+  const msg = encodeURIComponent(
+    `Hola ${CONFIG.nombre}! Me gustaría reservar:\n\n` +
+    `🛍️ ${p.nombre}\n💰 ${p.precio}€\n\n` +
+    `¿Tenéis disponibilidad para probármelo?`
+  );
+  document.getElementById('modal-whatsapp').href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+document.getElementById('modal-close').addEventListener('click', () => {
+  document.getElementById('modal-overlay').classList.remove('active');
+});
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target.id === 'modal-overlay') e.target.classList.remove('active');
+});
+</script>
+
+</body>
+</html>

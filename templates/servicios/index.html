@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Centro Vital · Fisioterapia y bienestar</title>
+<meta name="description" content="Centro de fisioterapia y bienestar. Pide cita online en 30 segundos.">
+
+<!--
+  ╔══════════════════════════════════════════════════════════════╗
+  ║  CONFIGURACIÓN DEL NEGOCIO                                   ║
+  ║  Plantilla flexible para: clínicas, gimnasios, talleres,     ║
+  ║  estéticas, dentistas, fisios, abogados, etc.                ║
+  ╚══════════════════════════════════════════════════════════════╝
+-->
+
+<script>
+const CONFIG = {
+  nombre: "Centro Vital",
+  subtitulo: "Fisioterapia & Bienestar",
+  eslogan: "Tu cuerpo en buenas manos",
+  descripcion: "Centro multidisciplinar con fisioterapeutas titulados y más de 12 años de experiencia. Te ayudamos a sentirte mejor.",
+
+  telefono: "+34 911 234 567",
+  whatsapp: "34600000000",
+  email: "info@centrovital.es",
+  direccion: "Avenida de la Salud 23, 28001 Madrid",
+  mapaEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.7!2d-3.7099!3d40.4156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI0JzU2LjIiTiAzwrA0MiczNS43Ilc!5e0!3m2!1ses!2ses!4v1234567890",
+
+  horario: {
+    lunes:     { abierto: true,  desde: "09:00", hasta: "20:00" },
+    martes:    { abierto: true,  desde: "09:00", hasta: "20:00" },
+    miercoles: { abierto: true,  desde: "09:00", hasta: "20:00" },
+    jueves:    { abierto: true,  desde: "09:00", hasta: "20:00" },
+    viernes:   { abierto: true,  desde: "09:00", hasta: "19:00" },
+    sabado:    { abierto: true,  desde: "10:00", hasta: "14:00" },
+    domingo:   { abierto: false }
+  },
+
+  // === SERVICIOS ===
+  servicios: [
+    { id: "fisio-general", nombre: "Fisioterapia general",      duracion: 45, precio: 45, descripcion: "Sesión de fisioterapia personalizada para dolores y lesiones." },
+    { id: "fisio-deport",  nombre: "Fisioterapia deportiva",    duracion: 60, precio: 55, descripcion: "Tratamiento específico para deportistas y lesiones deportivas." },
+    { id: "osteopatia",    nombre: "Osteopatía",                duracion: 60, precio: 60, descripcion: "Tratamiento global a través de técnicas manuales." },
+    { id: "punc-seca",     nombre: "Punción seca",              duracion: 30, precio: 35, descripcion: "Técnica avanzada para puntos gatillo." },
+    { id: "masaje",        nombre: "Masaje terapéutico",        duracion: 60, precio: 50, descripcion: "Relajación muscular profunda." },
+    { id: "pilates",       nombre: "Pilates clínico (1ª sesión)", duracion: 60, precio: 40, descripcion: "Valoración inicial y primera clase." }
+  ],
+  slotMinutos: 30,
+
+  // === BENEFICIOS / POR QUÉ NOSOTROS ===
+  beneficios: [
+    { icono: "🏆", titulo: "Profesionales titulados", descripcion: "Equipo con grado universitario y formación continua." },
+    { icono: "⏱️", titulo: "Sesiones de 45-60 min",  descripcion: "Tiempo suficiente para tratarte sin prisas." },
+    { icono: "📋", titulo: "Plan personalizado",      descripcion: "Diagnóstico y plan de tratamiento a tu medida." },
+    { icono: "🤝", titulo: "Convenio con mutuas",     descripcion: "Trabajamos con Adeslas, Sanitas, Mapfre y más." }
+  ],
+
+  // === EQUIPO ===
+  equipo: [
+    { nombre: "Dra. Marta Ríos",    rol: "Directora · Fisioterapeuta", foto: "https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=400&q=80" },
+    { nombre: "David Soler",        rol: "Osteópata · Col. 12345",      foto: "https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=400&q=80" },
+    { nombre: "Ana Vega",           rol: "Pilates clínico",             foto: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=400&q=80" }
+  ],
+
+  // === PROCESO ===
+  proceso: [
+    { num: 1, titulo: "Valoración inicial",  descripcion: "Te escuchamos y analizamos tu caso en detalle." },
+    { num: 2, titulo: "Plan de tratamiento", descripcion: "Diseñamos un plan personalizado según tu objetivo." },
+    { num: 3, titulo: "Sesiones efectivas",  descripcion: "Aplicamos las técnicas más adecuadas para ti." },
+    { num: 4, titulo: "Seguimiento",         descripcion: "Evaluamos tu progreso y ajustamos el plan." }
+  ],
+
+  // === FAQs ===
+  faqs: [
+    { p: "¿Cubre mi seguro?", r: "Trabajamos con Adeslas, Sanitas, DKV, Mapfre y otras. Llámanos para confirmar." },
+    { p: "¿Cuántas sesiones necesito?", r: "Depende de cada caso. En la primera valoración te damos una estimación realista." },
+    { p: "¿Puedo cancelar una cita?", r: "Sí, sin coste si avisas con 24h de antelación." },
+    { p: "¿Atendéis urgencias?", r: "Sí, resérvanos por WhatsApp y te buscamos hueco lo antes posible." }
+  ],
+
+  fotoHero: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=80",
+
+  colorAccent: "#0891b2",
+  colorAccent2: "#67e8f9",
+
+  resenas: [
+    { autor: "Roberto F.", estrellas: 5, texto: "Llevaba meses con dolor de espalda. En 4 sesiones noté la diferencia. Profesionales de verdad." },
+    { autor: "Cristina N.", estrellas: 5, texto: "Marta es una crack. Te explica todo, te da ejercicios para casa y nota cómo mejoras semana a semana." },
+    { autor: "Hugo M.",    estrellas: 5, texto: "Después del esguince me ayudaron a recuperarme rapidísimo. Volví a correr antes de lo previsto." }
+  ]
+};
+</script>
+
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #ffffff;
+    --surface: #f8fafc;
+    --surface-2: #f1f5f9;
+    --text: #0f172a;
+    --text-dim: #64748b;
+    --accent: #0891b2;
+    --accent-2: #67e8f9;
+    --accent-soft: #ecfeff;
+    --border: #e2e8f0;
+    --success: #16a34a;
+  }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg); color: var(--text);
+    line-height: 1.6; -webkit-font-smoothing: antialiased;
+    padding-bottom: 80px;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: var(--accent); text-decoration: none; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.95);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 0;
+  }
+  nav .container { display: flex; justify-content: space-between; align-items: center; }
+  .brand-name { font-weight: 800; font-size: 19px; letter-spacing: -0.3px; }
+  .brand-sub { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+  .nav-links { display: none; gap: 24px; }
+  .nav-links a { color: var(--text-dim); font-size: 14px; }
+  .nav-links a:hover { color: var(--accent); }
+  .nav-cta { background: var(--accent); color: #fff !important; padding: 8px 18px; border-radius: 8px; font-size: 13px; font-weight: 600; }
+  @media (min-width: 768px) { .nav-links { display: flex; } }
+
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, var(--accent-soft) 0%, #fff 100%);
+    padding: 80px 20px 60px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid; grid-template-columns: 1fr; gap: 48px;
+    align-items: center;
+  }
+  @media (min-width: 900px) { .hero-grid { grid-template-columns: 1.1fr 0.9fr; gap: 64px; } }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(8,145,178,0.1);
+    color: var(--accent);
+    font-size: 12px; font-weight: 600;
+    padding: 6px 14px; border-radius: 100px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px);
+    font-weight: 800; line-height: 1.05;
+    letter-spacing: -1.5px;
+    margin-bottom: 20px;
+  }
+  .hero h1 span { color: var(--accent); }
+  .hero-desc { font-size: clamp(16px, 2vw, 19px); color: var(--text-dim); margin-bottom: 32px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .btn {
+    display: inline-block;
+    background: var(--accent); color: #fff;
+    padding: 14px 28px; border-radius: 10px;
+    font-weight: 600; font-size: 15px;
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    border: none; cursor: pointer; font-family: inherit;
+    box-shadow: 0 4px 12px rgba(8,145,178,0.25);
+  }
+  .btn:hover { transform: translateY(-2px); background: #0e7490; }
+  .btn-ghost {
+    background: transparent; color: var(--text);
+    border: 1px solid var(--border);
+    box-shadow: none;
+  }
+  .btn-ghost:hover { background: var(--surface); border-color: var(--accent); color: var(--accent); }
+  .hero-img {
+    aspect-ratio: 4/3;
+    background-size: cover; background-position: center;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px rgba(8,145,178,0.15);
+  }
+  .hero-stats {
+    display: flex; gap: 24px;
+    margin-top: 32px;
+  }
+  .hero-stat strong { display: block; font-size: 28px; font-weight: 800; color: var(--accent); line-height: 1; }
+  .hero-stat span { font-size: 13px; color: var(--text-dim); }
+
+  section { padding: 80px 0; }
+  .section-tag { display: inline-block; background: var(--accent-soft); color: var(--accent); font-size: 12px; font-weight: 600; padding: 4px 12px; border-radius: 100px; margin-bottom: 16px; }
+  .section-title { font-size: clamp(28px, 4.5vw, 42px); font-weight: 800; letter-spacing: -1px; margin-bottom: 16px; line-height: 1.1; }
+  .section-sub { color: var(--text-dim); max-width: 600px; margin-bottom: 48px; font-size: 17px; }
+  .center { text-align: center; }
+  .center .section-sub { margin-left: auto; margin-right: auto; }
+
+  /* BENEFICIOS */
+  .beneficios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .beneficio {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .beneficio:hover { transform: translateY(-4px); box-shadow: 0 12px 24px rgba(8,145,178,0.08); }
+  .beneficio-icon { font-size: 32px; margin-bottom: 16px; }
+  .beneficio h4 { font-size: 17px; margin-bottom: 8px; }
+  .beneficio p { color: var(--text-dim); font-size: 14px; }
+
+  /* SERVICIOS */
+  .servicios-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .servicio-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .servicio-card:hover { border-color: var(--accent); }
+  .servicio-card h4 { font-size: 18px; margin-bottom: 8px; }
+  .servicio-card p { color: var(--text-dim); font-size: 14px; margin-bottom: 16px; }
+  .servicio-meta { display: flex; justify-content: space-between; align-items: center; padding-top: 16px; border-top: 1px solid var(--border); }
+  .servicio-meta .precio { color: var(--accent); font-weight: 800; font-size: 22px; }
+  .servicio-meta .duracion { color: var(--text-dim); font-size: 13px; }
+
+  /* PROCESO */
+  .proceso-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    counter-reset: paso;
+  }
+  .paso { text-align: center; padding: 24px; }
+  .paso-num {
+    width: 56px; height: 56px;
+    background: var(--accent);
+    color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; font-weight: 800;
+    margin: 0 auto 16px;
+  }
+  .paso h4 { font-size: 17px; margin-bottom: 6px; }
+  .paso p { color: var(--text-dim); font-size: 14px; }
+
+  /* EQUIPO */
+  .equipo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+  }
+  .miembro {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px;
+    text-align: center;
+  }
+  .miembro-foto {
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    margin: 0 auto 16px;
+    background-size: cover; background-position: center;
+  }
+  .miembro h4 { font-size: 17px; margin-bottom: 4px; }
+  .miembro p { color: var(--text-dim); font-size: 13px; }
+
+  /* RESERVA */
+  .reserva-section { background: var(--surface); }
+  .reserva-card {
+    background: var(--bg);
+    border-radius: 20px;
+    padding: 40px;
+    max-width: 720px;
+    margin: 0 auto;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.04);
+  }
+  @media (max-width: 600px) { .reserva-card { padding: 24px; } }
+  .reserva-step { display: none; }
+  .reserva-step.active { display: block; animation: fade 0.3s; }
+  @keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+  .step-title { font-size: 22px; font-weight: 700; margin-bottom: 8px; }
+  .step-sub { color: var(--text-dim); margin-bottom: 24px; }
+
+  .service-options { display: grid; gap: 8px; }
+  .service-option {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    transition: all 0.2s;
+    gap: 16px;
+  }
+  .service-option:hover, .service-option.selected {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+  }
+  .service-option strong { display: block; margin-bottom: 4px; }
+  .service-option small { color: var(--text-dim); font-size: 12px; }
+  .service-option .precio { color: var(--accent); font-weight: 800; font-size: 18px; flex-shrink: 0; }
+
+  .days-wrap { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; }
+  .day-btn {
+    flex-shrink: 0;
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 12px 14px;
+    cursor: pointer;
+    text-align: center;
+    min-width: 70px;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .day-btn:hover:not(.disabled) { border-color: var(--accent); }
+  .day-btn.selected { background: var(--accent); color: #fff; border-color: var(--accent); }
+  .day-btn.disabled { opacity: 0.3; cursor: not-allowed; }
+  .day-btn .dia-num { display: block; font-size: 22px; font-weight: 800; }
+  .day-btn .dia-nombre { display: block; font-size: 11px; text-transform: uppercase; }
+  .day-btn .dia-mes { display: block; font-size: 10px; opacity: 0.7; }
+
+  .slots {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+    gap: 8px;
+    margin-top: 16px;
+  }
+  .slot {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 10px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 14px;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+  .slot:hover:not(.disabled) { border-color: var(--accent); }
+  .slot.selected { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 700; }
+  .slot.disabled { opacity: 0.25; cursor: not-allowed; }
+  .no-slots { color: var(--text-dim); text-align: center; padding: 24px; font-size: 14px; }
+
+  .form-row { margin-bottom: 16px; }
+  .form-row label { display: block; margin-bottom: 6px; font-size: 13px; color: var(--text-dim); font-weight: 600; }
+  .form-row input, .form-row textarea {
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 12px 14px;
+    color: var(--text);
+    font-size: 15px;
+    font-family: inherit;
+  }
+  .form-row input:focus, .form-row textarea:focus { outline: none; border-color: var(--accent); }
+
+  .resumen { background: var(--accent-soft); border-radius: 12px; padding: 20px; margin: 16px 0; }
+  .resumen-row { display: flex; justify-content: space-between; padding: 6px 0; font-size: 14px; }
+  .resumen-row span:first-child { color: var(--text-dim); }
+  .resumen-row span:last-child { font-weight: 600; }
+  .resumen-total { color: var(--accent) !important; font-size: 18px !important; font-weight: 800 !important; }
+
+  .step-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+  .step-actions .btn { flex: 1; min-width: 140px; }
+
+  .reserva-ok { text-align: center; padding: 32px 16px; }
+  .reserva-ok .check {
+    width: 80px; height: 80px;
+    background: var(--success); color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 40px;
+    margin: 0 auto 24px;
+    animation: pop 0.4s;
+  }
+  @keyframes pop { 0% { transform: scale(0); } 70% { transform: scale(1.15); } 100% { transform: scale(1); } }
+
+  /* RESEÑAS */
+  .resenas-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+  }
+  .resena {
+    background: var(--surface);
+    border-radius: 16px;
+    padding: 28px;
+    border: 1px solid var(--border);
+  }
+  .estrellas { color: #f59e0b; font-size: 16px; margin-bottom: 12px; letter-spacing: 2px; }
+  .resena p { color: var(--text); margin-bottom: 16px; line-height: 1.6; }
+  .resena strong { color: var(--text-dim); font-size: 13px; font-weight: 600; }
+
+  /* FAQ */
+  .faq { max-width: 720px; margin: 0 auto; }
+  .faq-item {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 12px;
+    overflow: hidden;
+  }
+  .faq-q {
+    padding: 18px 24px;
+    cursor: pointer;
+    display: flex; justify-content: space-between; align-items: center;
+    font-weight: 600;
+    transition: background 0.2s;
+  }
+  .faq-q:hover { background: var(--surface-2); }
+  .faq-q::after { content: "+"; color: var(--accent); font-size: 20px; transition: transform 0.2s; }
+  .faq-item.open .faq-q::after { transform: rotate(45deg); }
+  .faq-r {
+    max-height: 0; overflow: hidden;
+    transition: max-height 0.3s, padding 0.3s;
+    color: var(--text-dim);
+    padding: 0 24px;
+  }
+  .faq-item.open .faq-r { max-height: 300px; padding: 0 24px 18px; }
+
+  /* MAPA */
+  .mapa-wrap {
+    border-radius: 16px; overflow: hidden;
+    border: 1px solid var(--border);
+    aspect-ratio: 16/9;
+  }
+  .mapa-wrap iframe { width: 100%; height: 100%; border: 0; }
+
+  /* STICKY MOBILE */
+  .sticky-cta {
+    position: fixed; bottom: 0; left: 0; right: 0; z-index: 40;
+    background: #fff;
+    border-top: 1px solid var(--border);
+    padding: 12px 16px;
+    display: flex; gap: 8px;
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.05);
+  }
+  .sticky-cta .btn { flex: 1; padding: 14px; font-size: 15px; }
+  .sticky-cta .btn-call {
+    background: var(--surface-2); color: var(--text);
+    box-shadow: none;
+    flex: 0 0 60px;
+  }
+  @media (min-width: 900px) { .sticky-cta { display: none; } body { padding-bottom: 0; } }
+
+  footer {
+    background: var(--text); color: #cbd5e1;
+    padding: 48px 0 24px; text-align: center;
+  }
+  footer .brand-name { color: #fff; }
+  footer p { font-size: 14px; margin: 6px 0; opacity: 0.8; }
+  footer .social { margin: 20px 0; }
+  footer .social a {
+    display: inline-block;
+    width: 36px; height: 36px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    line-height: 36px;
+    margin: 0 4px;
+    color: #fff;
+    font-size: 14px;
+  }
+  .legal { font-size: 12px; opacity: 0.5; margin-top: 16px; }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <div>
+      <div class="brand-name" id="brand-name"></div>
+      <div class="brand-sub" id="brand-sub"></div>
+    </div>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#equipo">Equipo</a>
+      <a href="#reservar" class="nav-cta">Pedir cita</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="container">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tag" id="hero-tag"></div>
+        <h1 id="hero-name"></h1>
+        <p class="hero-desc" id="hero-desc"></p>
+        <div class="hero-actions">
+          <a href="#reservar" class="btn">Pedir cita online</a>
+          <a href="#" class="btn btn-ghost" id="hero-call">📞 Llamar</a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <strong>12+</strong>
+            <span>Años de experiencia</span>
+          </div>
+          <div class="hero-stat">
+            <strong>2.500+</strong>
+            <span>Pacientes tratados</span>
+          </div>
+          <div class="hero-stat">
+            <strong>4.9</strong>
+            <span>Valoración Google</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-img" id="hero-img"></div>
+    </div>
+  </div>
+</header>
+
+<section>
+  <div class="container center">
+    <div class="section-tag">Por qué elegirnos</div>
+    <h2 class="section-title">Tratamientos que funcionan</h2>
+    <p class="section-sub">Más que sesiones: un plan completo pensado para ti.</p>
+    <div class="beneficios-grid" id="beneficios-grid"></div>
+  </div>
+</section>
+
+<section id="servicios" style="background: var(--surface);">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Servicios</div>
+      <h2 class="section-title">Tratamientos y tarifas</h2>
+      <p class="section-sub">Sin sorpresas. Precios claros para todos nuestros servicios.</p>
+    </div>
+    <div class="servicios-grid" id="servicios-grid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container center">
+    <div class="section-tag">Cómo funciona</div>
+    <h2 class="section-title">Tu proceso paso a paso</h2>
+    <p class="section-sub">Trabajamos contigo desde la primera consulta hasta tu recuperación.</p>
+    <div class="proceso-grid" id="proceso-grid"></div>
+  </div>
+</section>
+
+<section id="equipo" style="background: var(--surface);">
+  <div class="container center">
+    <div class="section-tag">Equipo</div>
+    <h2 class="section-title">Profesionales titulados</h2>
+    <p class="section-sub">Tu salud, en manos de expertos con formación universitaria y continua.</p>
+    <div class="equipo-grid" id="equipo-grid"></div>
+  </div>
+</section>
+
+<section id="reservar" class="reserva-section">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Reservar cita</div>
+      <h2 class="section-title">Pide tu cita online</h2>
+      <p class="section-sub">Elige tratamiento, día y hora. Te confirmamos por WhatsApp.</p>
+    </div>
+
+    <div class="reserva-card">
+
+      <div class="reserva-step active" data-step="1">
+        <div class="step-title">¿Qué tratamiento necesitas?</div>
+        <p class="step-sub">Selecciona el servicio.</p>
+        <div class="service-options" id="service-options"></div>
+        <div class="step-actions">
+          <button class="btn" id="to-step-2" disabled>Continuar</button>
+        </div>
+      </div>
+
+      <div class="reserva-step" data-step="2">
+        <div class="step-title">Elige día y hora</div>
+        <p class="step-sub">Próximos 14 días disponibles.</p>
+        <div class="days-wrap" id="days-wrap"></div>
+        <div class="slots" id="slots"></div>
+        <div class="step-actions">
+          <button class="btn btn-ghost" data-back="1">Atrás</button>
+          <button class="btn" id="to-step-3" disabled>Continuar</button>
+        </div>
+      </div>
+
+      <div class="reserva-step" data-step="3">
+        <div class="step-title">Tus datos</div>
+        <p class="step-sub">Solo para confirmar la cita.</p>
+        <div class="form-row">
+          <label>Nombre completo</label>
+          <input type="text" id="cli-nombre" placeholder="Tu nombre">
+        </div>
+        <div class="form-row">
+          <label>Teléfono</label>
+          <input type="tel" id="cli-tel" placeholder="600 000 000">
+        </div>
+        <div class="form-row">
+          <label>Motivo o consulta (opcional)</label>
+          <textarea id="cli-notas" rows="2" placeholder="Cuéntanos brevemente tu caso"></textarea>
+        </div>
+        <div class="resumen" id="resumen"></div>
+        <div class="step-actions">
+          <button class="btn btn-ghost" data-back="2">Atrás</button>
+          <button class="btn" id="confirmar-reserva">Confirmar cita</button>
+        </div>
+      </div>
+
+      <div class="reserva-step" data-step="4">
+        <div class="reserva-ok">
+          <div class="check">✓</div>
+          <h3 style="font-size: 26px; margin-bottom: 12px;">¡Cita reservada!</h3>
+          <p style="color: var(--text-dim); margin-bottom: 24px;">
+            Te confirmaremos por WhatsApp en breve.<br>
+            <strong style="color: var(--text);" id="ok-fecha"></strong>
+          </p>
+          <a href="#" class="btn" id="ok-whatsapp" target="_blank">Avisar al centro</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Reseñas</div>
+      <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
+    </div>
+    <div class="resenas-grid" id="resenas-grid"></div>
+  </div>
+</section>
+
+<section style="background: var(--surface);">
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Dudas frecuentes</div>
+      <h2 class="section-title">Preguntas habituales</h2>
+    </div>
+    <div class="faq" id="faq"></div>
+  </div>
+</section>
+
+<section>
+  <div class="container">
+    <div class="center">
+      <div class="section-tag">Ubicación</div>
+      <h2 class="section-title">Cómo llegar</h2>
+      <p class="section-sub" id="mapa-direccion"></p>
+    </div>
+    <div class="mapa-wrap"><iframe id="mapa-iframe" loading="lazy"></iframe></div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <div class="brand-name" id="footer-name"></div>
+    <div class="brand-sub" id="footer-sub"></div>
+    <p id="footer-direccion" style="margin-top: 16px;"></p>
+    <p id="footer-telefono"></p>
+    <div class="social">
+      <a href="#">IG</a>
+      <a href="#">FB</a>
+      <a href="#">LI</a>
+    </div>
+    <p class="legal">© <span id="year"></span> · Web por <a href="../../" style="color:inherit;">PinoWeb</a></p>
+  </div>
+</footer>
+
+<div class="sticky-cta">
+  <a href="#" class="btn btn-call" id="sticky-call">📞</a>
+  <a href="#reservar" class="btn">Pedir cita</a>
+</div>
+
+<script>
+(function() {
+  document.title = CONFIG.nombre + " · " + CONFIG.subtitulo;
+  ['brand-name','footer-name'].forEach(id => document.getElementById(id).textContent = CONFIG.nombre);
+  ['brand-sub','footer-sub'].forEach(id => document.getElementById(id).textContent = CONFIG.subtitulo);
+  document.getElementById('hero-tag').textContent = CONFIG.eslogan;
+  document.getElementById('hero-name').innerHTML = CONFIG.nombre.replace(/\s(\S+)$/, ' <span>$1</span>');
+  document.getElementById('hero-desc').textContent = CONFIG.descripcion;
+  document.getElementById('hero-img').style.backgroundImage = `url('${CONFIG.fotoHero}')`;
+  document.getElementById('footer-direccion').textContent = CONFIG.direccion;
+  document.getElementById('footer-telefono').textContent = CONFIG.telefono;
+  document.getElementById('mapa-direccion').textContent = CONFIG.direccion;
+  document.getElementById('mapa-iframe').src = CONFIG.mapaEmbed;
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const tel = "tel:" + CONFIG.telefono.replace(/\s/g, '');
+  document.getElementById('sticky-call').href = tel;
+  document.getElementById('hero-call').href = tel;
+
+  const root = document.documentElement;
+  root.style.setProperty('--accent', CONFIG.colorAccent);
+  root.style.setProperty('--accent-2', CONFIG.colorAccent2);
+
+  // Beneficios
+  const bg = document.getElementById('beneficios-grid');
+  CONFIG.beneficios.forEach(b => {
+    const div = document.createElement('div');
+    div.className = 'beneficio';
+    div.innerHTML = `
+      <div class="beneficio-icon">${b.icono}</div>
+      <h4>${b.titulo}</h4>
+      <p>${b.descripcion}</p>
+    `;
+    bg.appendChild(div);
+  });
+
+  // Servicios
+  const sg = document.getElementById('servicios-grid');
+  CONFIG.servicios.forEach(s => {
+    const div = document.createElement('div');
+    div.className = 'servicio-card';
+    div.innerHTML = `
+      <h4>${s.nombre}</h4>
+      <p>${s.descripcion}</p>
+      <div class="servicio-meta">
+        <span class="duracion">${s.duracion} min</span>
+        <span class="precio">${s.precio}€</span>
+      </div>
+    `;
+    sg.appendChild(div);
+  });
+
+  // Proceso
+  const pg = document.getElementById('proceso-grid');
+  CONFIG.proceso.forEach(p => {
+    const div = document.createElement('div');
+    div.className = 'paso';
+    div.innerHTML = `
+      <div class="paso-num">${p.num}</div>
+      <h4>${p.titulo}</h4>
+      <p>${p.descripcion}</p>
+    `;
+    pg.appendChild(div);
+  });
+
+  // Equipo
+  const eg = document.getElementById('equipo-grid');
+  CONFIG.equipo.forEach(m => {
+    const div = document.createElement('div');
+    div.className = 'miembro';
+    div.innerHTML = `
+      <div class="miembro-foto" style="background-image:url('${m.foto}')"></div>
+      <h4>${m.nombre}</h4>
+      <p>${m.rol}</p>
+    `;
+    eg.appendChild(div);
+  });
+
+  // Reseñas
+  const rg = document.getElementById('resenas-grid');
+  CONFIG.resenas.forEach(r => {
+    const div = document.createElement('div');
+    div.className = 'resena';
+    div.innerHTML = `
+      <div class="estrellas">${'★'.repeat(r.estrellas)}</div>
+      <p>"${r.texto}"</p>
+      <strong>— ${r.autor}</strong>
+    `;
+    rg.appendChild(div);
+  });
+
+  // FAQs
+  const fq = document.getElementById('faq');
+  CONFIG.faqs.forEach(f => {
+    const div = document.createElement('div');
+    div.className = 'faq-item';
+    div.innerHTML = `
+      <div class="faq-q">${f.p}</div>
+      <div class="faq-r">${f.r}</div>
+    `;
+    div.querySelector('.faq-q').addEventListener('click', () => div.classList.toggle('open'));
+    fq.appendChild(div);
+  });
+})();
+
+const Reserva = {
+  servicio: null, fecha: null, hora: null,
+
+  init() {
+    this.renderServicios();
+    this.renderDias();
+    this.bindNav();
+  },
+
+  bindNav() {
+    document.getElementById('to-step-2').addEventListener('click', () => this.goTo(2));
+    document.getElementById('to-step-3').addEventListener('click', () => {
+      if (this.fecha && this.hora) { this.renderResumen(); this.goTo(3); }
+    });
+    document.querySelectorAll('[data-back]').forEach(b => {
+      b.addEventListener('click', () => this.goTo(parseInt(b.dataset.back)));
+    });
+    document.getElementById('confirmar-reserva').addEventListener('click', () => this.confirmar());
+  },
+
+  goTo(n) {
+    document.querySelectorAll('.reserva-step').forEach(s => s.classList.remove('active'));
+    document.querySelector(`[data-step="${n}"]`).classList.add('active');
+    document.querySelector('#reservar').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  },
+
+  renderServicios() {
+    const c = document.getElementById('service-options');
+    CONFIG.servicios.forEach(s => {
+      const d = document.createElement('div');
+      d.className = 'service-option';
+      d.innerHTML = `
+        <div>
+          <strong>${s.nombre}</strong>
+          <small>${s.duracion} min · ${s.descripcion}</small>
+        </div>
+        <span class="precio">${s.precio}€</span>
+      `;
+      d.addEventListener('click', () => {
+        document.querySelectorAll('.service-option').forEach(o => o.classList.remove('selected'));
+        d.classList.add('selected');
+        this.servicio = s;
+        document.getElementById('to-step-2').disabled = false;
+      });
+      c.appendChild(d);
+    });
+  },
+
+  renderDias() {
+    const wrap = document.getElementById('days-wrap');
+    const dias = ['domingo','lunes','martes','miercoles','jueves','viernes','sabado'];
+    const diasCorto = ['Dom','Lun','Mar','Mié','Jue','Vie','Sáb'];
+    const meses = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+    const hoy = new Date(); hoy.setHours(0,0,0,0);
+
+    for (let i = 0; i < 14; i++) {
+      const d = new Date(hoy); d.setDate(d.getDate() + i);
+      const h = CONFIG.horario[dias[d.getDay()]];
+      const btn = document.createElement('button');
+      btn.className = 'day-btn';
+      if (!h.abierto) btn.classList.add('disabled');
+      btn.innerHTML = `
+        <span class="dia-nombre">${diasCorto[d.getDay()]}</span>
+        <span class="dia-num">${d.getDate()}</span>
+        <span class="dia-mes">${meses[d.getMonth()]}</span>
+      `;
+      if (h.abierto) {
+        btn.addEventListener('click', () => {
+          document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('selected'));
+          btn.classList.add('selected');
+          this.fecha = d; this.hora = null;
+          document.getElementById('to-step-3').disabled = true;
+          this.renderSlots(d, h);
+        });
+      }
+      wrap.appendChild(btn);
+    }
+  },
+
+  renderSlots(fecha, horario) {
+    const cont = document.getElementById('slots');
+    cont.innerHTML = '';
+    const [hd, md] = horario.desde.split(':').map(Number);
+    const [hh, mh] = horario.hasta.split(':').map(Number);
+    const inicio = hd * 60 + md;
+    const fin = hh * 60 + mh - (this.servicio?.duracion || 30);
+    const step = CONFIG.slotMinutos || 30;
+
+    const ahora = new Date();
+    const esHoy = fecha.toDateString() === ahora.toDateString();
+    const minutosAhora = ahora.getHours() * 60 + ahora.getMinutes();
+    const reservas = this.cargarReservas().filter(r => r.fecha === this.fechaKey(fecha));
+
+    let hayAlguno = false;
+    for (let m = inicio; m <= fin; m += step) {
+      const hStr = String(Math.floor(m/60)).padStart(2,'0');
+      const mStr = String(m%60).padStart(2,'0');
+      const hora = `${hStr}:${mStr}`;
+      const slot = document.createElement('div');
+      slot.className = 'slot'; slot.textContent = hora;
+
+      const pasado = esHoy && m <= minutosAhora;
+      const ocupado = reservas.some(r => r.hora === hora);
+      if (pasado || ocupado) slot.classList.add('disabled');
+      else {
+        hayAlguno = true;
+        slot.addEventListener('click', () => {
+          document.querySelectorAll('.slot').forEach(s => s.classList.remove('selected'));
+          slot.classList.add('selected');
+          this.hora = hora;
+          document.getElementById('to-step-3').disabled = false;
+        });
+      }
+      cont.appendChild(slot);
+    }
+    if (!hayAlguno) cont.innerHTML = '<div class="no-slots">No hay horas disponibles este día.</div>';
+  },
+
+  renderResumen() {
+    const fechaStr = this.fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    document.getElementById('resumen').innerHTML = `
+      <div class="resumen-row"><span>Tratamiento</span><span>${this.servicio.nombre}</span></div>
+      <div class="resumen-row"><span>Día</span><span>${fechaStr}</span></div>
+      <div class="resumen-row"><span>Hora</span><span>${this.hora}</span></div>
+      <div class="resumen-row"><span>Duración</span><span>${this.servicio.duracion} min</span></div>
+      <div class="resumen-row"><span>Importe</span><span class="resumen-total">${this.servicio.precio}€</span></div>
+    `;
+  },
+
+  confirmar() {
+    const nombre = document.getElementById('cli-nombre').value.trim();
+    const tel = document.getElementById('cli-tel').value.trim();
+    const notas = document.getElementById('cli-notas').value.trim();
+    if (!nombre || !tel) { alert('Por favor, completa nombre y teléfono.'); return; }
+    const reserva = {
+      servicio: this.servicio.nombre,
+      precio: this.servicio.precio,
+      fecha: this.fechaKey(this.fecha),
+      hora: this.hora,
+      nombre, tel, notas,
+      timestamp: new Date().toISOString()
+    };
+    this.guardarReserva(reserva);
+    const fechaStr = this.fecha.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long' });
+    const msg = encodeURIComponent(
+      `🩺 NUEVA CITA · ${CONFIG.nombre}\n\n` +
+      `👤 ${nombre}\n📞 ${tel}\n\n` +
+      `🔹 ${this.servicio.nombre} (${this.servicio.precio}€)\n` +
+      `📅 ${fechaStr}\n⏰ ${this.hora}\n` +
+      (notas ? `\n📝 ${notas}\n` : '') +
+      `\nCita desde la web`
+    );
+    document.getElementById('ok-whatsapp').href = `https://wa.me/${CONFIG.whatsapp}?text=${msg}`;
+    document.getElementById('ok-fecha').textContent = `${fechaStr} a las ${this.hora}`;
+    this.goTo(4);
+  },
+
+  fechaKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; },
+
+  cargarReservas() {
+    try { return JSON.parse(localStorage.getItem('reservas_' + location.pathname) || '[]'); }
+    catch { return []; }
+  },
+
+  guardarReserva(r) {
+    const all = this.cargarReservas();
+    all.push(r);
+    localStorage.setItem('reservas_' + location.pathname, JSON.stringify(all));
+    // TODO PRODUCCIÓN: enviar 'r' al backend
+  }
+};
+
+Reserva.init();
+</script>
+
+</body>
+</html>
